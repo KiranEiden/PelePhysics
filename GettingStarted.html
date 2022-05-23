@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PelePhysics Quickstart &mdash; PelePhysics 2022.10 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction" href="Introduction.html" />
+    <link rel="prev" title="Welcome to the CHEMISTRY documentation of PelePhysics" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> PelePhysics
+          </a>
+              <div class="version">
+                2022.10
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Documentation contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><cite>PelePhysics</cite> Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#obtaining-pelephysics">Obtaining <cite>PelePhysics</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-cvode-and-suitesparse">Install CVODE and <cite>SuiteSparse</cite></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#suitesparse">SuiteSparse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cvode">CVODE</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IntroductionToCvode.html">A brief introduction to CVODE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CvodeInPP.html">CVODE implementation in <cite>PelePhysics</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="CvodeInPP.html#cvode-implementation-in-pelephysics-on-gpu">CVODE implementation in <cite>PelePhysics</cite> on GPU</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QSS.html">Analytically reduced chemistry via quasi-steady state (QSS) assumption in <cite>PelePhysics</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ceptr.html">CEPTR: Chemistry Evaluation for Pele Through Recasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PelePhysics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><cite>PelePhysics</cite> Quickstart</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/GettingStarted.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pelephysics-quickstart">
+<h1><cite>PelePhysics</cite> Quickstart<a class="headerlink" href="#pelephysics-quickstart" title="Permalink to this headline"></a></h1>
+<p>Greetings impatient user. Once again, note that this documentation focuses on the CHEMISTRY part of <cite>PelePhysics</cite>.</p>
+<ul class="simple">
+<li><p>If you are familiar with <cite>PelePhysics</cite>, have it installed already and would simply like to know which chemistry-related keywords and/or environment variables to set in your various input files to perform a simulation with one of the codes available in the <cite>PeleSuite</cite>, then I invite you to directly skip to section <a class="reference internal" href="CvodeInPP.html#sec-subsppoptions"><span class="std std-ref">Activating the different CVODE solver options via the input files</span></a>.</p></li>
+<li><p>If you are a complete beginner, I urge you to carefully read the two following chapters <a class="reference internal" href="#sec-getpp"><span class="std std-ref">Obtaining PelePhysics</span></a> and <a class="reference internal" href="#sec-getcvode"><span class="std std-ref">Install CVODE and SuiteSparse</span></a>, to properly set-up your working environment.</p></li>
+<li><p>If you are in a hurry but still would like more context, visit section <a class="reference internal" href="Introduction.html#sec-subswd"><span class="std std-ref">Introduction</span></a> to be referred to portions of this document that are of interest to you.</p></li>
+</ul>
+<section id="obtaining-pelephysics">
+<span id="sec-getpp"></span><h2>Obtaining <cite>PelePhysics</cite><a class="headerlink" href="#obtaining-pelephysics" title="Permalink to this headline"></a></h2>
+<p>First, make sure that “Git” is installed on your machine—we recommend version 1.7.x or higher. Then…</p>
+<ol class="arabic">
+<li><p>Download the <cite>AMReX</cite> repository by typing:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/AMReX-Codes/amrex.git
+</pre></div>
+</div>
+</li>
+</ol>
+<p>This will create an <code class="docutils literal notranslate"><span class="pre">amrex/</span></code> folder on your machine. Next, set the environment variable <code class="docutils literal notranslate"><span class="pre">AMREX_HOME</span></code> to point to the location where you have downloaded <cite>AMReX</cite>:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>export AMREX_HOME=/path/to/amrex/
+</pre></div>
+</div>
+<ol class="arabic" start="2">
+<li><p>Clone the <cite>Pele</cite> repository:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:AMReX-Combustion/PelePhysics.git
+</pre></div>
+</div>
+</li>
+</ol>
+<p>This will create a <code class="docutils literal notranslate"><span class="pre">PelePhysics</span></code> folder on your machine. Set the environment variable <code class="docutils literal notranslate"><span class="pre">PELE_PHYSICS_HOME</span></code> to point to the location of this folder.</p>
+<ol class="arabic simple" start="3">
+<li><p>Periodically update both of these repositories by typing <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> within each repository.</p></li>
+</ol>
+</section>
+<section id="install-cvode-and-suitesparse">
+<span id="sec-getcvode"></span><h2>Install CVODE and <cite>SuiteSparse</cite><a class="headerlink" href="#install-cvode-and-suitesparse" title="Permalink to this headline"></a></h2>
+<p><strong>The user is in charge of installing the proper CVODE version, as well as installing and properly linking the KLU library if sparsity features are needed.</strong></p>
+<section id="suitesparse">
+<h3>SuiteSparse<a class="headerlink" href="#suitesparse" title="Permalink to this headline"></a></h3>
+<p><cite>SuiteSparse</cite> is a suite of Sparse Matrix software that is very handy when dealing with big kinetic mechanisms (the Jacobian of which are usually very sparse).
+In such a case, CVODE can make use of the KLU library, which is part of <cite>SuiteSparse</cite>, to perform sparse linear algebra.
+Documentation and further information can be found on <a class="reference external" href="http://faculty.cse.tamu.edu/davis/suitesparse.html">SuiteSparse website</a>.</p>
+<p>At the time this note is written, the recommended <strong>SuiteSparse version</strong> is <strong>5.4.0</strong>. Follow these steps to set-up your working environment and build the required libraries:</p>
+<ol class="arabic simple">
+<li><p>Go to <a class="reference external" href="http://faculty.cse.tamu.edu/davis/suitesparse.html">the SuiteSparse website</a> and download the compressed file for the recommended version</p></li>
+<li><p>Copy the tar file into <code class="docutils literal notranslate"><span class="pre">$PELE_PHYSICS_HOME/ThirdParty</span></code></p></li>
+<li><p>Untar (‘tar -zxvf’), cd into it and type ‘make’ into the following folders: <code class="docutils literal notranslate"><span class="pre">SuiteSparse_config</span></code>, <code class="docutils literal notranslate"><span class="pre">AMD</span></code>, <code class="docutils literal notranslate"><span class="pre">COLAMD</span></code>, <code class="docutils literal notranslate"><span class="pre">BTF</span></code></p></li>
+<li><p>Go into <code class="docutils literal notranslate"><span class="pre">metis-5.1.0</span></code> and type ‘make config shared=1’ followed by ‘make’</p></li>
+<li><p>Go into <code class="docutils literal notranslate"><span class="pre">KLU</span></code> and type ‘make’</p></li>
+<li><p>Check that all dynamic libraries have correctly been generated and copied into the folder <code class="docutils literal notranslate"><span class="pre">$PELE_PHYSICS_HOME/ThirdParty/SuiteSparse/lib</span></code></p></li>
+<li><p>It is recommended that you add the path <code class="docutils literal notranslate"><span class="pre">$PELE_PHYSICS_HOME/ThirdParty/SuiteSparse/lib</span></code> to your <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code>, for precaution</p></li>
+<li><p>Note that depending upon your compiler, the static <code class="docutils literal notranslate"><span class="pre">.a</span></code> versions of the libraries might also be required. In such a case, you can copy them directly from each program folder into the <code class="docutils literal notranslate"><span class="pre">SuiteSparse/lib</span></code> folder</p></li>
+</ol>
+</section>
+<section id="cvode">
+<h3>CVODE<a class="headerlink" href="#cvode" title="Permalink to this headline"></a></h3>
+<p>CVODE is a solver for stiff and nonstiff ordinary differential equation (ODE) systems. Documentation and further information can be found <a class="reference external" href="https://computing.llnl.gov/projects/sundials/cvode">online</a>.
+At the time this note is written, the recommended <strong>CVODE version</strong> is <strong>v5.0.0</strong>.</p>
+<p>The CVODE sources are distributed as compressed archives, with names following the convention <code class="docutils literal notranslate"><span class="pre">cvode-x.y.z.tar.gz</span></code>. They can be downloaded by following
+<a class="reference external" href="https://computation.llnl.gov/projects/sundials/sundials-software">this link</a>.  However, we have designed a simple script enabling to install the current version the correct way. Simply:</p>
+<ol class="arabic simple">
+<li><p>Go into <code class="docutils literal notranslate"><span class="pre">$PELE_PHYSICS_HOME/ThirdParty</span></code></p></li>
+<li><p>Execute either <code class="docutils literal notranslate"><span class="pre">get_sundials_v5dev1.sh</span></code> or <code class="docutils literal notranslate"><span class="pre">get_sundials_v5dev1_CUDA.sh</span></code> depending on your application (GPU or not) and machine</p></li>
+<li><p>Set the <code class="docutils literal notranslate"><span class="pre">SUNDIALS_LIB_DIR</span></code> environment variable to point to the location where all CVODE libraries have been generated. If you followed these guidelines, it should be <code class="docutils literal notranslate"><span class="pre">$PELE_PHYSICS_HOME/ThirdParty/sundials/instdir/lib/</span></code></p></li>
+<li><p>It is recommended, here also, that you add the path <code class="docutils literal notranslate"><span class="pre">$PELE_PHYSICS_HOME/ThirdParty/sundials/instdir/lib</span></code> to your <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code>, as paths can get lost in the build of external libraries</p></li>
+</ol>
+<p>Note that if you do not want to use the KLU library, you can also disable the flags (<code class="docutils literal notranslate"><span class="pre">-DKLU_ENABLE</span></code>) in the <code class="docutils literal notranslate"><span class="pre">*.sh</span></code> scripts.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to the CHEMISTRY documentation of PelePhysics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright AMReX Copyright (c) 2022, The Regents of the University of California, through Lawrence Berkeley National Laboratory and the Alliance for Sustainable Energy, LLC., through National Renewable Energy Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy).  All rights reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
